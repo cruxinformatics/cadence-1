@@ -39,7 +39,10 @@ type (
 		Password string `yaml:password` //nolint:govet
 		// optional to disable sniff, according to issues on Github,
 		// Sniff could cause issue like "no Elasticsearch node available"
-		DisableSniff bool `yaml:disableSniff`
+		DisableSniff bool `yaml:"disableSniff"`
+		// optional to healthchecks sniff, according to issues on Github,
+		// Healthchecks could cause issue like "no Elasticsearch node available"
+		DisableHealthCheck bool `yaml:"disableHealthCheck"`
 	}
 )
 
