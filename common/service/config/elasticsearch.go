@@ -21,6 +21,7 @@
 package config
 
 import (
+	"github.com/uber/cadence/common/auth"
 	"net/url"
 
 	"github.com/uber/cadence/common"
@@ -42,6 +43,8 @@ type (
 		DisableSniff bool `yaml:"disableSniff"`
 		// optional to disable health check
 		DisableHealthCheck bool `yaml:"disableHealthCheck"`
+		// optional to use Signed Certificates over https
+		TLS auth.TLS `yaml:"tls"`
 	}
 )
 

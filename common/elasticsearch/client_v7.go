@@ -26,6 +26,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"net/http"
 	"strconv"
 	"time"
 
@@ -91,6 +92,15 @@ func NewV7Client(
 	}
 	if connectConfig.DisableHealthCheck {
 		clientOptFuncs = append(clientOptFuncs, elastic.SetHealthcheck(false))
+	}
+	if connectConfig.TLS.Enabled {
+		var tlsClient *http.Client
+		var err error
+		tlsClient, err = buildTLSHTTPClient(connectConfig.TLS)
+		if err != nil {
+			return nil, err
+		}
+		clientOptFuncs = append(clientOptFuncs, elastic.SetHttpClient(tlsClient))
 	}
 	client, err := elastic.NewClient(clientOptFuncs...)
 	if err != nil {
